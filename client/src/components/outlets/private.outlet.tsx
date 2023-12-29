@@ -1,5 +1,6 @@
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useCurrentUser } from '../context/current-user-context';
 
 function NavigateToLogin() {
     const location = useLocation();
@@ -8,10 +9,9 @@ function NavigateToLogin() {
   }
 
 export function PrivateOutlet() {
-    // const {user} = useCurrentUser();
+    const { user } = useCurrentUser();
   
-    // eslint-disable-next-line
-    return true ? (
+    return user ? (
       <>
         <Outlet />
       </>

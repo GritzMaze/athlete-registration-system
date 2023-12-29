@@ -7,10 +7,10 @@ interface RequestOptions {
     query?: Record<string, string | undefined>;
   }
 
-  class HttpError extends Error {
+  export class HttpError extends Error {
     public readonly status: number;
 
-    constructor(message: string, status: number = 500) {
+    constructor(message: string, status = 500) {
         super(message);
         this.status = status;
     }
@@ -18,6 +18,10 @@ interface RequestOptions {
 
 class HttpService {
     private readonly baseUrl: string;
+
+    public authErrorHandler = () => {
+      //empty
+    };
 
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
@@ -80,6 +84,12 @@ class HttpService {
     //     }
     //     throw new GenericError('Unknown error');
     //   }
+
+    const status = response.status;
+
+    if (status === 401) {
+      this.authErrorHandler();
+    }
   
       try {
         return await response.json();

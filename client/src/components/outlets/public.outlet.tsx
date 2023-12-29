@@ -1,14 +1,14 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useCurrentUser } from '../context/current-user-context';
 
 
-function NavigateToHome() {
+export function NavigateToHome() {
     return <Navigate to="/" />;
   }
   
   export function PublicOutlet() {
-    // const { user } = useCurrentUser();
+    const { user } = useCurrentUser();
   
-    // eslint-disable-next-line
-    return false ? <NavigateToHome /> : <Outlet />;
+    return user ? <NavigateToHome /> : <Outlet />;
   }
   
