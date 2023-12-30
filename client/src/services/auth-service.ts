@@ -45,10 +45,10 @@ class AuthService {
     this.handler = handler;
   }
 
-  async login(authCode: string) {
+  async login(user: User) {
     try {
       const { token } = await httpService.post<LoginResponse>('/login', {
-        body: { authCode }
+        body: user
       });
 
       this.setToken(token);
@@ -61,6 +61,16 @@ class AuthService {
 
       throw error;
     }
+  }
+
+  async register(user: User) {
+    const { token } = await httpService.post<LoginResponse>('/register', {
+      body: user
+    });
+
+    this.setToken(token);
+
+    return token;
   }
 
   logout() {

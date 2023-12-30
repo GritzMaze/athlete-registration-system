@@ -10,6 +10,7 @@ function NavigateToLogin() {
 
 export function PrivateOutlet() {
     const { user } = useCurrentUser();
+    console.log(user);
   
     return user ? (
       <>

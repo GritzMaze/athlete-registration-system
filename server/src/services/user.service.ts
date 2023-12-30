@@ -1,6 +1,7 @@
 import { PrismaClient, User } from '@prisma/client';
 import { prisma as prismaService } from './prisma.service';
 import { BaseDatabaseService } from './base-database.service';
+import { pick } from 'lodash';
 
 // TODO: Maybe move this to a separate file
 // in a folder called interfaces and split
@@ -53,8 +54,11 @@ export class UserService extends BaseDatabaseService<User> {
   }
 
   async create(data: UserCreateInput): Promise<Partial<User>> {
+
+    const toCreate = pick(data, ['username', 'password', 'email']);
+
     return await this.prisma.user.create({
-      data,
+      data: toCreate,
       select: {id: true, username: true, email: true, createdAt: true }
     },
     );

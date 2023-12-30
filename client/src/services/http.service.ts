@@ -87,8 +87,23 @@ class HttpService {
 
     const status = response.status;
 
+    if (status >= 400) {
+      if (status === 401) {
+        this.authErrorHandler();
+      }
+      let errorBody: HttpError;
+      try {
+        errorBody = await response.json();
+      } catch (error) {
+          throw new HttpError('Something went wrong', status);
+      }
+
+      throw new HttpError(errorBody.message, status);
+    }
+
     if (status === 401) {
       this.authErrorHandler();
+      throw new Error('Invalid username or password!');
     }
   
       try {
