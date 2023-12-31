@@ -7,30 +7,39 @@ import { LoginPage } from './pages/login';
 import { RegisterPage } from './pages/register';
 import { Navigation } from './components/navigation';
 import './App.css';
+import { NotFoundPage } from './pages/not-found';
+import { ConfigProvider, theme } from 'antd';
 
 function App() {
   return (
     <BrowserRouter>
       <CurrentUserProvider>
-        <div className='main-container'>
-          <Routes>
-            <Route
-              path='/'
-              element={
-                <>
-                  <Navigation /> <PrivateOutlet />
-                </>
-              }
-            >
-              <Route path='/' element={<Home />}></Route>
-            </Route>
+        <ConfigProvider
+          theme={{
+            algorithm: theme.darkAlgorithm,
+          }}
+        >
+          <div className='main-container'>
+            <Routes>
+              <Route
+                path='/'
+                element={
+                  <>
+                    <Navigation /> <PrivateOutlet />
+                  </>
+                }
+              >
+                <Route path='/' element={<Home />}></Route>
+              </Route>
 
-            <Route element={<PublicOutlet />}>
-              <Route path='/login' element={<LoginPage />} />
-              <Route path='/register' element={<RegisterPage />} />
-            </Route>
-          </Routes>
-        </div>
+              <Route element={<PublicOutlet />}>
+                <Route path='/login' element={<LoginPage />} />
+                <Route path='/register' element={<RegisterPage />} />
+              </Route>
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+          </div>
+        </ConfigProvider>
       </CurrentUserProvider>
     </BrowserRouter>
   );
