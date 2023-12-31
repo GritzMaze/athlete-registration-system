@@ -24,7 +24,7 @@ const KEY_TO_PAGE_MAP: Record<string, string> = {
   athletes: '/athletes',
   clubs: '/clubs',
   editProfile: '/profile/edit',
-  register: '/profile/register',
+  register: '/profile/registration',
   logout: '/login'
 };
 
@@ -33,7 +33,7 @@ const PAGE_TO_KEY_MAP: Record<string, string> = {
   'athletes': 'athletes',
   'clubs': 'clubs',
   'profile/edit': 'editProfile',
-  'profile/register': 'register',
+  'profile/registration': 'register',
 };
 
 const items: MenuProps['items'] = [
