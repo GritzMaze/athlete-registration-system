@@ -1,23 +1,18 @@
 import './index.css';
-import logo from '../../logo.svg';
+import { CardComponent } from '../../components/card';
+import { Flex } from 'antd';
 
 export function Home() {
-    return (
-        <div className='App'>
-            <header className='App-header'>
-              <img src={logo} className='App-logo' alt='logo' />
-              <p>
-                Edit <code>src/pages/home/index.tsx</code> and save to reload.
-              </p>
-              <a
-                className='App-link'
-                href='https://reactjs.org'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                Learn React
-              </a>
-            </header>
-          </div>
-    )
+  const cards = [1, 2, 3, 4, 5, 6];
+  const cardProp = {
+    name: 'John Doe',
+    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+  };
+  return (
+    <Flex wrap="wrap" gap="small" justify='center'>
+      {Array.from({ length: 20 }).map((card, index) => {
+        return <CardComponent key={index} card={cardProp} />;
+      })}
+    </Flex>
+  );
 }
