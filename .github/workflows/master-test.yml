@@ -46,6 +46,10 @@ jobs:
     name: Test Client
     runs-on: ubuntu-latest
 
+    env:
+      REACT_APP_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+      REACT_APP_STRIPE_REGISTRATION_PRICE_ID: ${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
+
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v3
