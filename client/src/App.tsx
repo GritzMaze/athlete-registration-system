@@ -9,6 +9,8 @@ import { Navigation } from './components/navigation';
 import './App.css';
 import { NotFoundPage } from './pages/not-found';
 import { ConfigProvider, theme } from 'antd';
+import { RegistrationPage } from './pages/registration';
+import { SuccessRegistrationPage } from './pages/success-registration';
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
                 }
               >
                 <Route path='/' element={<Home />}></Route>
+                <Route path='/profile/registration' element={<RegistrationPage />} />
+                  <Route path='/profile/registration/success' element={<SuccessRegistrationPage />} />
               </Route>
 
               <Route element={<PublicOutlet />}>

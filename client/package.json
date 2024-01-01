@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@stripe/stripe-js": "^2.2.2",
     "antd": "^5.12.5",
     "dayjs": "^1.11.7",
     "jwt-decode": "^3.1.2",

@@ -1,30 +1,23 @@
 import {
-  UserOutlined,
   SolutionOutlined,
-  LoadingOutlined,
   SmileOutlined,
   UploadOutlined,
+  PayCircleOutlined,
 } from '@ant-design/icons';
-import { Button, FormInstance, Steps, message } from 'antd';
+import { Button, Steps, message } from 'antd';
 import './index.css';
 import { useState } from 'react';
 import { RegistrationFormComponent } from '../../components/registration-form';
 import { UploadComponent } from '../../components/upload/upload';
+import { PayComponent } from '../../components/pay';
+import { useSearchParams } from 'react-router-dom';
 
 
 
 export function RegistrationPage() {
-  const [current, setCurrent] = useState(0);
-
-  const submitRegistrationForm = (form: FormInstance): boolean => {
-    form.validateFields().then((values) => {
-        return true;
-    }
-    ).catch((error) => {
-        return false;
-    });
-    return false;
-  }
+  const [searchParams] = useSearchParams();
+  const cancel = searchParams.get('cancel');
+  const [current, setCurrent] = useState(cancel ? 2 : 0);
 
 
   const steps = [
@@ -43,14 +36,14 @@ export function RegistrationPage() {
     {
       title: 'Pay',
       status: 'process',
-      icon: <LoadingOutlined />,
-      content: 'Last-content',
+      icon: <PayCircleOutlined />,
+      content: <PayComponent />,
     },
     {
       title: 'Done',
       status: 'wait',
       icon: <SmileOutlined />,
-      content: 'Last-content',
+      content: 'Done',
     },
   ];
 
@@ -78,7 +71,7 @@ export function RegistrationPage() {
             Previous
           </Button>
         )}
-        {current < steps.length - 1 && (
+        {current < steps.length - 2 && (
           <Button type='primary' onClick={() => next()}>
             Next
           </Button>
