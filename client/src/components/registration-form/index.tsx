@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import type { CascaderProps, FormInstance } from 'antd';
+import { useState } from 'react';
+import type { CascaderProps } from 'antd';
 import {
   AutoComplete,
   Button,
@@ -80,11 +80,11 @@ const tailFormItemLayout = {
   },
 };
 
-interface RegistrationFormComponentProps {
-    submit?: (form: FormInstance) => boolean;
-}
+// interface RegistrationFormComponentProps {
+//     submit?: (form: FormInstance) => boolean;
+// }
 
-export function RegistrationFormComponent({ submit }: RegistrationFormComponentProps) {
+export function RegistrationFormComponent() {
     const [form] = Form.useForm();
 
     const onFinish = (values: any) => {

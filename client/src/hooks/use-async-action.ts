@@ -40,6 +40,7 @@ export function useAsyncAction<Args extends any[], Result>(
     perform(...args).catch(() => {
       //empty
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { trigger, perform, data, error, loading };

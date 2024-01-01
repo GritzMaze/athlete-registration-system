@@ -3,7 +3,7 @@ import type { UploadProps } from 'antd';
 import { message, Upload, Typography, Space } from 'antd';
 
 const { Dragger } = Upload;
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 const props: UploadProps = {
   name: 'file',

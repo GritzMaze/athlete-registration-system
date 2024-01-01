@@ -7,6 +7,7 @@ export function useAsync<T>(
 ) {
   const { trigger, data, loading, error } = useAsyncAction(action);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => trigger(), dependencies);
 
   const reload = () => {

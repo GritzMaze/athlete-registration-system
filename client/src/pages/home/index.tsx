@@ -3,7 +3,6 @@ import { CardComponent } from '../../components/card';
 import { Flex } from 'antd';
 
 export function Home() {
-  const cards = [1, 2, 3, 4, 5, 6];
   const cardProp = {
     name: 'John Doe',
     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
