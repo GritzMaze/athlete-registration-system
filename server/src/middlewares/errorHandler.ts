@@ -18,7 +18,7 @@ export default function handleError(
     status: err.status
   };
   if (err.status === 500) {
-    result.message = 'Internal server error';
+    result.message = 'Internal Server error';
   } else {
     result.message = errorFormattingService.getErrorMessage(err);
   }
