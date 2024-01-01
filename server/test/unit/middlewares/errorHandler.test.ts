@@ -17,7 +17,7 @@ describe('Error Handler Middleware', () => {
     };
     err = {
       status: 500,
-      message: 'There have been an error'
+      message: 'Internal Server Error'
     };
     errorHandlingMiddleware = errorHandler;
   });

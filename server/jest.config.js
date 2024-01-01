@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'mindmap-server',
+  displayName: 'athlete-registration-server',
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/*.test.ts'],

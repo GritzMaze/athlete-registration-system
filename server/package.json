@@ -1,7 +1,6 @@
 {
-  "name": "mindmap",
+  "name": "athlete-registration-system",
   "version": "1.0.0",
-  "description": "Visualize your thoughts",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -14,12 +13,12 @@
     "lint:fix": "eslint --ext .ts src/ --fix",
     "db:client:generate": "prisma generate",
     "db:client:format": "prisma format",
-    "db:migrate": "prisma migrate dev",
+    "db:migrate": "prisma migrate dev --skip-seed",
     "db:migration:create": "prisma migrate dev --create-only --name",
     "ci:start": "npm run db:migrate && npm run start"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts --transpile-only"
   },
   "directories": {
     "test": "test"
@@ -31,7 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/GritzMaze/Mindmap.git"
   },
-  "author": "Mindmap Team",
+  "author": "GritzMaze",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GritzMaze/Mindmap.git/issues"
