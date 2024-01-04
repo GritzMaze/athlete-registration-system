@@ -14,6 +14,7 @@
  <div align="center">
     <a href="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/master-build.yml"><img src="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/master-build.yml/badge.svg" alt="build" ></a>
     <a href="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/master-test.yml"><img src="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/master-test.yml/badge.svg" alt="build" ></a>
+    <a href="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/release.yml"><img src="https://github.com/GritzMaze/athlete-registration-system/actions/workflows/release.yml/badge.svg" alt="build" ></a>
  </div>
 
 <!-- PROJECT LOGO -->
