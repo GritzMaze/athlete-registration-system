@@ -1,15 +1,15 @@
-FROM node:18.0.0-alpine3.14
+FROM node:18.0.0-alpine
 
 RUN mkdir -p /home/athlete-registration-system/server
 WORKDIR /home/athlete-registration-system/server
-COPY ./package*.json tsconfig.json ./
-COPY prisma ./prisma
+COPY server/package.json server/package-lock.json server/tsconfig.json ./
+COPY server/prisma ./prisma
 
 RUN npm ci
 
-COPY ./src ./src
+COPY server/src ./src
 
-RUN npm run build && \
+RUN cd server && npm run build && \
     npm prune --production
 
 
