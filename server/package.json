@@ -15,7 +15,7 @@
     "db:client:format": "prisma format",
     "db:migrate": "prisma migrate dev --skip-seed",
     "db:migration:create": "prisma migrate dev --create-only --name",
-    "ci:start": "npm run db:migrate && npm run start"
+    "db:migrate:ci": "prisma migrate deploy"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts --transpile-only"
