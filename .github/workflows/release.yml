@@ -30,7 +30,7 @@ jobs:
                 context: .
                 file: ./client/Dockerfile
                 push: true
-                tags: ghcro.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                tags: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
 
     build-server:
         runs-on: ubuntu-latest
@@ -56,4 +56,4 @@ jobs:
                 context: .
                 file: ./server/Dockerfile
                 push: true
-                tags: ghcro.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+                tags: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
