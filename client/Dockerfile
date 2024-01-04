@@ -9,9 +9,10 @@ RUN npm ci
 COPY client/src ./src
 COPY client/public ./public
 
-RUN npm run build && \
-    npm prune --production
+RUN npm install -g serve
+
+RUN npm run build
 
 EXPOSE 8080
 
-CMD [ "npm", "run", "start" ]
+CMD serve -s build
