@@ -9,7 +9,7 @@ RUN npm ci
 
 COPY server/src ./src
 
-RUN cd server && npm run build && \
+RUN npm run build && \
     npm prune --production
 
 
