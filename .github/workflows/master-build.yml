@@ -22,8 +22,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - name: Generate Prisma Client
-        run: cd server && npx prisma generate
       - name: Install dependencies
         run: cd server && npm ci
       - name: Lint
@@ -35,17 +33,6 @@ jobs:
   build_client:
     name: Build Client
     runs-on: ubuntu-latest
-
-    services: 
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: mindmap_test
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Checkout Git repository
