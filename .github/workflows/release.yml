@@ -25,7 +25,7 @@ jobs:
                 context: .
                 file: ./client/Dockerfile
                 push: true
-                tags: ${{ github.actor }}/athlete-registration-system-client:${{ github.run_id }}
+                tags: ${{ github.actor }}/sebizclient:${{ github.run_id }}
 
     build-server:
         runs-on: ubuntu-latest
@@ -46,4 +46,4 @@ jobs:
                 context: .
                 file: ./server/Dockerfile
                 push: true
-                tags: ${{ github.actor }}/athlete-registration-system-server:${{ github.run_id }}
+                tags: ${{ github.actor }}/sebizserver:${{ github.run_id }}
