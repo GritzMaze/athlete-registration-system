@@ -2,7 +2,7 @@ FROM node:18.0.0-alpine3.14
 
 RUN mkdir -p /home/athlete-regystration-system/client
 WORKDIR /home/athlete-regystration-system/client
-COPY client/package.json client/package-lock.json tsconfig.json ./
+COPY client/package.json client/package-lock.json client/tsconfig.json ./
 
 RUN npm ci
 
