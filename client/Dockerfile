@@ -1,20 +1,16 @@
 FROM node:18.0.0-alpine3.14
-RUN npm i -g npm@8.10.0
-
-RUN addgroup --gid 990 athlete-regystration-system
-RUN adduser athlete-regystration-system --home /home/athlete-regystration-system --uid 990 --system -G athlete-regystration-system
-
-USER athlete-regystration-system
 
 RUN mkdir /home/athlete-regystration-system/client
 WORKDIR /home/athlete-regystration-system/client
-COPY --chown=athlete-regystration-system ./package*.json ./
+COPY client/package.json client/package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
-COPY --chown=athlete-regystration-system . .
+COPY client/src ./src
+COPY client/public ./public
 
-RUN npm run build
+RUN npm run build && \
+    npm prune --production
 
 EXPOSE 8080
 
