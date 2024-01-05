@@ -96,7 +96,7 @@ jobs:
               run:
                 |
                 export CLIENT_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
-                cat manifests/client-deployment.yaml | envsubst | kubectl apply -f -
+                cat manifests/client-deployment.yml | envsubst | kubectl apply -f -
 
     deploy-server-kube:
         name: Deploy server to Kubernetes
@@ -132,4 +132,4 @@ jobs:
               run:
                 |
                 export SERVER_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
-                cat manifests/server-deployment.yaml | envsubst | kubectl apply -f -
+                cat manifests/server-deployment.yml | envsubst | kubectl apply -f -
