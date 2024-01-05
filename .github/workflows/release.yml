@@ -61,3 +61,75 @@ jobs:
                 file: ./server/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+
+    deploy-client-kube:
+        name: Deploy client to Kubernetes
+        needs: [build-client]
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+        steps:
+            - name: Set up doctl
+              uses: digitalocean/action-doctl@v2
+              with:
+                token: ${{ secrets.DIGITAL_OCEAN_API_TOKEN_KEY }}
+
+            - name: Set up kubectl
+              uses: tale/kubectl-action@v1
+              with:
+                base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+          
+            - name: Login to GHCR
+              uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: set lower case owner name
+              run: |
+                    echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+              env:
+                    OWNER: '${{ github.actor }}'
+
+            - name: Deploy to Kubernetes
+              run:
+                |
+                export CLIENT_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                cat manifests/client-deployment.yaml | envsubst | kubectl apply -f -
+
+    deploy-server-kube:
+        name: Deploy server to Kubernetes
+        needs: [build-server]
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+        steps:
+            - name: Set up doctl
+              uses: digitalocean/action-doctl@v2
+              with:
+                token: ${{ secrets.DIGITAL_OCEAN_API_TOKEN_KEY }}
+
+            - name: Set up kubectl
+              uses: tale/kubectl-action@v1
+              with:
+                base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+          
+            - name: Login to GHCR
+              uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: set lower case owner name
+              run: |
+                    echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+              env:
+                    OWNER: '${{ github.actor }}'
+
+            - name: Deploy to Kubernetes
+              run:
+                |
+                export SERVER_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+                cat manifests/server-deployment.yaml | envsubst | kubectl apply -f -
