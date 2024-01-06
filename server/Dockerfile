@@ -9,6 +9,8 @@ RUN npm ci
 
 COPY server/src ./src
 
+RUN npx prisma migrate deploy
+
 RUN npm run build && \
     npm prune --production
 

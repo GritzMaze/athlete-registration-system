@@ -19,7 +19,7 @@ spec:
         emptyDir: {}
       containers:
       - name: postgres
-        image: $DATABASE_IMAGE
+        image: postgres:15.0-alpine
         volumeMounts:
         - name: postgres-volume-mount
           mountPath: /var/lib/postgresql/data
