@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ConfigMap
 metadata:
-  name: client-conifg
+  name: client-config
 type: Opaque
 data:
   REACT_APP_SERVER_URL: $REACT_APP_SERVER_URL
