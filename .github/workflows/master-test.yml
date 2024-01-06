@@ -10,7 +10,7 @@ env:
   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/sebiz_test?schema=public
   APP_PORT: 3000
  
-
+ 
 jobs:
  test_server:
     name: Test Server
