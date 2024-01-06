@@ -320,7 +320,7 @@ jobs:
     release-swagger:
       name: Upload Swagger to Github pages
       runs-on: ubuntu-latest
-      needs: [deploy-client-kube, deploy-server-kube]
+      # needs: [deploy-client-kube, deploy-server-kube]
       permissions:
         contents: write
       steps:
