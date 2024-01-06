@@ -10,6 +10,9 @@ ENV POSTGRES_DB=${POSTGRES_DB}
 
 FROM node:18.0.0-alpine as node_builder
 
+ARG DATABASE_URL
+ENV DATABASE_URL $DATABASE_URL
+
 WORKDIR /home/athlete-registration-system/server
 
 RUN npm install prisma@5.7.1

@@ -2,7 +2,7 @@ FROM node:18.0.0-alpine
 
 ARG DATABASE_URL
 
-ENV DATABASE_URL=${DATABASE_URL}
+ENV DATABASE_URL $DATABASE_URL 
 
 RUN mkdir -p /home/athlete-registration-system/server
 WORKDIR /home/athlete-registration-system/server
