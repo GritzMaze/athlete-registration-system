@@ -2,7 +2,6 @@ FROM node:18.0.0-alpine
 
 ARG DATABASE_URL
 
-ENV NODE_ENV=production
 ENV DATABASE_URL=${DATABASE_URL}
 
 RUN mkdir -p /home/athlete-registration-system/server
@@ -17,6 +16,7 @@ COPY server/src ./src
 RUN npm run build && \
     npm prune --production
 
+ENV NODE_ENV=production
 
 EXPOSE 3000
 
