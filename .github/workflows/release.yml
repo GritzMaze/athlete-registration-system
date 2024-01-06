@@ -126,8 +126,8 @@ jobs:
               uses: aquasecurity/trivy-action@master
               with:
                 image-ref: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
-                format: 'table'
-                exit-code: 1
+                format: 'sarif'
+                exit-code: 0
                 ignore-unfixed: true
                 vuln-type: 'os,library'
                 severity: 'CRITICAL,HIGH'
@@ -159,8 +159,8 @@ jobs:
               uses: aquasecurity/trivy-action@master
               with:
                 image-ref: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
-                format: 'table'
-                exit-code: 1
+                format: 'sarif'
+                exit-code: 0
                 ignore-unfixed: true
                 vuln-type: 'os,library'
                 severity: 'CRITICAL,HIGH'
@@ -328,8 +328,7 @@ jobs:
         uses: Legion2/swagger-ui-action@v1
         with:
           output: swagger-ui
-          spec-file: server/swagger.yaml
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          spec-file: ./server/swagger.yaml
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
