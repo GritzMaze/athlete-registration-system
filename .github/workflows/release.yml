@@ -133,9 +133,8 @@ jobs:
                 export SERVER_URL=${{ secrets.SERVER_URL }}
                 export STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
                 export STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
+                cat manifests/client-map.yml | envsubst | kubectl apply -f -
                 cat manifests/client-deployment.yml | envsubst | kubectl apply -f -
-                kubectl apply -f manifests/client-map.yml
-
     deploy-server-kube:
         name: Deploy server to Kubernetes
         needs: [build-database]
