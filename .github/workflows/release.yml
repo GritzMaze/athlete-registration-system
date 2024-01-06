@@ -31,11 +31,19 @@ jobs:
                     OWNER: '${{ github.actor }}'
             - name: Build and push
               uses: docker/build-push-action@v5
+              env: 
+                REACT_APP_SERVER_URL: ${{ secrets.SERVER_URL }}
+                REACT_APP_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                REACT_APP_STRIPE_REGISTRATION_PRICE_ID: ${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
               with:
                 context: .
                 file: ./client/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                build-args: |
+                  REACT_APP_SERVER_URL=${{ secrets.SERVER_URL }}
+                  REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                  REACT_APP_STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
 
     build-server:
         runs-on: ubuntu-latest
