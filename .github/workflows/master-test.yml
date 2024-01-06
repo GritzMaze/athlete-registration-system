@@ -2,7 +2,7 @@ name: TEST
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: [ "develop", "master", "hotfix/**", "feature/**", "bugfix/**", "release/**"]
 
   workflow_dispatch:
 
