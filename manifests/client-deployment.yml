@@ -22,8 +22,8 @@ spec:
               value: $SERVER_URL
             - name: REACT_APP_STRIPE_PUBLISHABLE_KEY
               value: $STRIPE_PUBLISHABLE_KEY
-            - name: REACT_APP_STRIPE_PRICE_ID
-              value: $STRIPE_PRICE_ID
+            - name: REACT_APP_STRIPE_REGISTRATION_PRICE_ID
+              value: $STRIPE_REGISTRATION_PRICE_ID
 ---
 apiVersion: v1
 kind: Service
