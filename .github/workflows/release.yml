@@ -134,6 +134,7 @@ jobs:
                 export STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
                 export STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
                 cat manifests/client-deployment.yml | envsubst | kubectl apply -f -
+                kubectl apply -f manifests/client-map.yml
 
     deploy-server-kube:
         name: Deploy server to Kubernetes
