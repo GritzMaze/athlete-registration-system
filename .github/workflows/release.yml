@@ -33,6 +33,10 @@ jobs:
                 file: ./client/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                secrets: |
+                  REACT_APP_SERVER_URL=${{ secrets.SERVER_URL }}
+                  REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                  REACT_APP_STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
 
     build-server:
         runs-on: ubuntu-latest
@@ -61,6 +65,8 @@ jobs:
                 file: ./server/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+                secrets: |
+                  DATABASE_URL=${{ secrets.DATABASE_URL }}
 
     build-database:
         runs-on: ubuntu-latest
@@ -87,9 +93,14 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                 context: .
-                file: ./server/Dockerfile.migrations
+                file: ./server/Dockerfile.database
                 push: true
-                tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}   
+                tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}
+                secrets: |
+                  POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+                  POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+                  POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+
 
     deploy-client-kube:
         name: Deploy client to Kubernetes
