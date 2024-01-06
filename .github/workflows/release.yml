@@ -87,7 +87,7 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                 context: .
-                file: ./database/Dockerfile
+                file: ./server/Dockerfile.migrations
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}   
 
