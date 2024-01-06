@@ -2,12 +2,12 @@ FROM node:18.0.0-alpine
 
 RUN mkdir -p /home/athlete-registration-system/server
 WORKDIR /home/athlete-registration-system/server
-COPY server/package.json server/package-lock.json server/tsconfig.json ./
-COPY server/prisma ./prisma
+COPY package.json package-lock.json tsconfig.json ./
+COPY prisma ./prisma
 
 RUN npm ci
 
-COPY server/src ./src
+COPY src ./src
 
 RUN npm run build && \
     npm prune --production
@@ -15,4 +15,4 @@ RUN npm run build && \
 
 EXPOSE 3000
 
-CMD node dist/src/index.js
+CMD ["node", "./dist/index.js"]
