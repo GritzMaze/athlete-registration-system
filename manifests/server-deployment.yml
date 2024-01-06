@@ -17,6 +17,10 @@ spec:
           image: $SERVER_IMAGE
           ports:
             - containerPort: 3000
+          env:
+          - name: DATABASE_URL
+            value: $DATABASE_URL
+
 ---
 apiVersion: v1
 kind: Service

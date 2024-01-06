@@ -17,6 +17,13 @@ spec:
           image: $CLIENT_IMAGE
           ports:
             - containerPort: 3000
+          env:
+            - name: REACT_APP_SERVER_URL
+              value: $SERVER_URL
+            - name: REACT_APP_STRIPE_PUBLISHABLE_KEY
+              value: $STRIPE_PUBLISHABLE_KEY
+            - name: REACT_APP_STRIPE_PRICE_ID
+              value: $STRIPE_PRICE_ID
 ---
 apiVersion: v1
 kind: Service

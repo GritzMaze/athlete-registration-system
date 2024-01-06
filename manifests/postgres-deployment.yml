@@ -24,6 +24,15 @@ spec:
         - name: postgres-volume-mount
           mountPath: /var/lib/postgresql/data
           subPath: postgres
+        env:
+        - name: POSTGRES_USER
+          value: $POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          value: $POSTGRES_PASSWORD
+        - name: POSTGRES_DB
+          value: $POSTGRES_DB
+        - name: DATABASE_URL
+          value: $DATABASE_URL
       restartPolicy: Always
       
 

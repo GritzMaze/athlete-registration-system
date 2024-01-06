@@ -33,10 +33,6 @@ jobs:
                 file: ./client/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
-                secrets: |
-                  REACT_APP_SERVER_URL=${{ secrets.SERVER_URL }}
-                  REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-                  REACT_APP_STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
 
     build-server:
         runs-on: ubuntu-latest
@@ -65,8 +61,6 @@ jobs:
                 file: ./server/Dockerfile
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
-                secrets: |
-                  DATABASE_URL=${{ secrets.DATABASE_URL }}
 
     build-database:
         runs-on: ubuntu-latest
@@ -96,11 +90,6 @@ jobs:
                 file: ./server/Dockerfile.database
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}
-                secrets: |
-                  POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-                  POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-                  POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-                  DATABASE_URL=${{ secrets.DATABASE_URL }}
 
 
     deploy-client-kube:
@@ -140,6 +129,9 @@ jobs:
               run:
                 |
                 export CLIENT_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                export REACT_APP_SERVER_URL=${{ secrets.SERVER_URL }}
+                export REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                export REACT_APP_STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
                 cat manifests/client-deployment.yml | envsubst | kubectl apply -f -
 
     deploy-server-kube:
@@ -179,6 +171,10 @@ jobs:
               run:
                 |
                 export SERVER_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+                export DATABASE_URL=${{ secrets.DATABASE_URL }}
                 cat manifests/server-deployment.yml | envsubst | kubectl apply -f -
                 export DATABASE_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}
+                export POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+                export POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+                export POSTGRES_DB=${{ secrets.POSTGRES_DB }}
                 cat manifests/postgres-deployment.yml | envsubst | kubectl apply -f -
