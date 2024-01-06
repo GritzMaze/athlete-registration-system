@@ -17,22 +17,9 @@ spec:
           image: $CLIENT_IMAGE
           ports:
             - containerPort: 3000
-          env:
-            - name: REACT_APP_SERVER_URL
-              valueFrom:
-                secretKeyRef:
-                  name: client-secrets
-                  key: REACT_APP_SERVER_URL
-            - name: REACT_APP_STRIPE_PUBLISHABLE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: client-secrets
-                  key: REACT_APP_STRIPE_PUBLISHABLE_KEY
-            - name: REACT_APP_STRIPE_REGISTRATION_PRICE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: client-secrets
-                  key: REACT_APP_STRIPE_REGISTRATION_PRICE_ID
+          envFrom:
+            - configMapRef:
+                name: client-config
 ---
 apiVersion: v1
 kind: Service
