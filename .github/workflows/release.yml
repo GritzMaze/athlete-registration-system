@@ -106,9 +106,69 @@ jobs:
     #             tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}
 
 
+    scan-trivy-image-client:
+        name: Scan client docker image with Trivy
+        needs: [build-client]
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: set lower case owner name
+              run: |
+                  echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+              env:
+                  OWNER: '${{ github.actor }}'
+            - name: Run Trivy vulnerability scanner
+              uses: aquasecurity/trivy-action@master
+              with:
+                image-ref: ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
+                format: 'table'
+                exit-code: 1
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'CRITICAL,HIGH'
+
+            - name: Upload Trivy scan results to GitHub Security tab
+              uses: github/codeql-action/upload-sarif@v2
+              if: always()
+              with:
+                sarif_file: 'trivy-results.sarif'
+
+    scan-trivy-image-server:
+        name: Scan server docker image with Trivy
+        needs: [build-server]
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: set lower case owner name
+              run: |
+                  echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+              env:
+                  OWNER: '${{ github.actor }}'
+            - name: Run Trivy vulnerability scanner
+              uses: aquasecurity/trivy-action@master
+              with:
+                image-ref: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
+                format: 'table'
+                exit-code: 1
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'CRITICAL,HIGH'
+
+            - name: Upload Trivy scan results to GitHub Security tab
+              uses: github/codeql-action/upload-sarif@v2
+              if: always()
+              with:
+                sarif_file: 'trivy-results.sarif'
+
     deploy-client-kube:
         name: Deploy client to Kubernetes
-        needs: [build-client]
+        needs: [scan-trivy-image-client]
         runs-on: ubuntu-latest
         permissions:
             packages: write
@@ -147,7 +207,7 @@ jobs:
 
     deploy-database:
         name: Deploy database to Kubernetes
-        needs: [build-server]
+        needs: [scan-trivy-image-server]
         runs-on: ubuntu-latest
         permissions:
             packages: write
