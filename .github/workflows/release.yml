@@ -62,6 +62,35 @@ jobs:
                 push: true
                 tags: ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
 
+    build-database:
+        runs-on: ubuntu-latest
+        needs: [build-server]
+        permissions:
+            packages: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Login to GHCR
+              uses: docker/login-action@v3
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+            - name: set lower case owner name
+              run: |
+                    echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+              env:
+                    OWNER: '${{ github.actor }}'
+            - name: Build and push
+              uses: docker/build-push-action@v5
+              with:
+                context: .
+                file: ./database/Dockerfile
+                push: true
+                tags: ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}   
+
     deploy-client-kube:
         name: Deploy client to Kubernetes
         needs: [build-client]
@@ -103,7 +132,7 @@ jobs:
 
     deploy-server-kube:
         name: Deploy server to Kubernetes
-        needs: [build-server]
+        needs: [build-database]
         runs-on: ubuntu-latest
         permissions:
             packages: write
@@ -139,3 +168,5 @@ jobs:
                 |
                 export SERVER_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizserver:${{ github.run_id }}
                 cat manifests/server-deployment.yml | envsubst | kubectl apply -f -
+                export DATABASE_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizdatabase:${{ github.run_id }}
+                cat manifests/postgres-deployment.yml | envsubst | kubectl apply -f -

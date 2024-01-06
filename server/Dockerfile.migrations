@@ -1,0 +1,10 @@
+FROM node:18.0.0-alpine
+
+WORKDIR /home/athlete-registration-system/server
+
+RUN npm install prisma@5.7.1
+
+COPY server/prisma ./prisma
+COPY server/package.json server/package-lock.json ./
+
+CMD npx prisma migrate deploy
