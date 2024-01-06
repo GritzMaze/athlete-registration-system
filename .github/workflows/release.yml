@@ -2,6 +2,8 @@ name: RELEASE
 
 on:
   push:
+    tags:
+      - 'v*.*.*'
     branches:
       - master
     paths-ignore:
@@ -320,7 +322,7 @@ jobs:
     release-swagger:
       name: Upload Swagger to Github pages
       runs-on: ubuntu-latest
-      # needs: [deploy-client-kube, deploy-server-kube]
+      needs: [deploy-client-kube, deploy-server-kube]
       permissions:
         contents: write
       steps:
@@ -328,10 +330,10 @@ jobs:
           id: swagger-ui-action
           uses: pjoc-team/swagger-ui-action@v0.0.2
           with:
-            dir: './'
+            dir: './server'
             pattern: '*.json'
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v3
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: swagger-ui
+            publish_dir: ./public
