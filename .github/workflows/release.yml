@@ -130,9 +130,9 @@ jobs:
               run:
                 |
                 export CLIENT_IMAGE=ghcr.io/${{ env.OWNER_LC }}/sebizclient:${{ github.run_id }}
-                export REACT_APP_SERVER_URL=${{ secrets.SERVER_URL }}
-                export REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
-                export REACT_APP_STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
+                export SERVER_URL=${{ secrets.SERVER_URL }}
+                export STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+                export STRIPE_REGISTRATION_PRICE_ID=${{ secrets.STRIPE_REGISTRATION_PRICE_ID }}
                 cat manifests/client-deployment.yml | envsubst | kubectl apply -f -
 
     deploy-server-kube:
