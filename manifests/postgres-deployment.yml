@@ -16,8 +16,7 @@ spec:
     spec:
       volumes:
       - name: postgres-volume-mount
-        persistentVolumeClaim:
-          claimName: postgres-pvc
+        emptyDir: {}
       containers:
       - name: postgres
         image: $DATABASE_IMAGE
@@ -25,17 +24,6 @@ spec:
         - name: postgres-volume-mount
           mountPath: /var/lib/postgresql/data
           subPath: postgres
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: user
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: password
       restartPolicy: Always
       
 
