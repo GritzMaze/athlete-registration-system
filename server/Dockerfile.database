@@ -1,8 +1,9 @@
 FROM postgres:15.0.0-alpine as database_builder
-FROM node:18.0.0-alpine as node_builder
 
-ARG DATABASE_URL
-ENV DATABASE_URL=${DATABASE_URL}
+EXPOSE 5432
+CMD ["postgres"]
+
+FROM node:18.0.0-alpine as node_builder
 
 WORKDIR /home/athlete-registration-system/server
 
