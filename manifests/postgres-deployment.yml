@@ -32,7 +32,7 @@ spec:
         - name: POSTGRES_DB
           value: $POSTGRES_DB
         - name: DATABASE_URL
-          value: $DATABASE_URL
+          value: postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB
       restartPolicy: Always
       
 
