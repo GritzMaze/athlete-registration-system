@@ -10,4 +10,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /mnt/data
-  storageClassName: manual
+  storageClassName: standard
