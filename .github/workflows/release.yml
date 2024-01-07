@@ -241,7 +241,7 @@ jobs:
               cat manifests/postgres-deployment.yml | envsubst | kubectl apply -f -
           - name: Wait for database to be ready
             run: |
-              kubectl wait --for=condition=ready pod -l service=postgres --timeout=60s
+              kubectl wait --for=condition=ready pod -l service=postgres --timeout=180s
 
     migrate-database:
         name: Migrate database
