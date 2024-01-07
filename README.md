@@ -131,6 +131,57 @@ docker-compose up --build -d
 
 <div align="right"><p align="right">(<a href="#top">back to top</a>)</p></div>
 
+# Deployment process
+
+## Development
+Developers work on features in their local environment. Once the feature is complete, a feature branch is created and pushed to the repository. A pull request is then created to merge the feature branch into the main branch. The pull request is reviewed by other developers and then merged into the main branch.
+
+## Testing
+Before pushing to the repository, the pre-push hook in the .husky directory runs to ensure that all tests pass and there are no linting errors.
+
+## Continuous Integration
+There are two main workflows in the .github/workflows directory. `The master-build.yml` workflow check if the branch can be build. `The master-test.yml` workflow validates if all unit testing in the application pass.
+
+## Dockerization
+The application is dockerized using the Dockerfiles in the client and server directories. These are deployment images that are used in the Kubernetes deployment. There aren't images for local development at this time.
+
+## Deployment to Kubernetes
+
+<picture>
+<img src="https://i.imgur.com/f9WDgBS.png" alt="Deployment pipeline" />
+</picture>
+
+### Stages:
+
+#### 1. Build docker images
+
+The first stage of the pipeline is to build the docker images for the client and server. The images are then pushed to the Github registry.
+
+#### 2. Scan docker images
+
+The second stage of the pipeline is to scan the docker images for vulnerabilities. The results are uploaded to the security tab in the repository.
+
+#### 3.1 Deploy client to K8s
+
+Client is deployed to the Kubernetes cluster using the image from the Github registry. The deployment is exposed using a load balancer service. Pod configuration is stored in the `manifests/client-deployment.yml` file. Environment variables for the client are passed on docker build as build arguments and built with the image.
+
+#### 3.2 Deploy database to K8s
+
+Database is deployed to the Kubernetes cluster using postgres 15.0 image. The pod has persistent volume storage to retain the database on deploy. The stage will not complete if the pod is not up and running in 3 minute. Postgres service is expose so we can run the database schema migrations from the github actions. 
+
+#### 3.3 Deploy server to K8s
+
+Server is deployed to the Kubernetes cluster using the image from the Github registry. The deployment is exposed using a load balancer service. Pod configuration is stored in the `manifests/server-deployment.yml` file. Server awaits for the database to be ready before starting.
+
+#### 4. Github release
+
+On successful deployment to the Kubernetes cluster, a Github release is created.
+
+#### 5. Swagger documentation
+
+Swagger documentation is generated on successful deployment to the Kubernetes cluster. The documentation is available on <strong><a href="https://gritzmaze.github.io/athlete-registration-system/">github-pages</a></strong>.
+
+
 # FAQ
 
 - **How to run the tests?**
