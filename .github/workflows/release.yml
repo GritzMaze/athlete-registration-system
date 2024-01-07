@@ -314,10 +314,15 @@ jobs:
       permissions:
         contents: write
       steps:
+        - name: Checkout
+          uses: actions/checkout@v4
         - name: Release
-          uses: softprops/action-gh-release@v1
+          uses: rymndhng/release-on-push-action@master
           with:
-            generate_release_notes: true
+            bump_version_scheme: minor
+            use_github_release_notes: true
+            tag_prefix: v
+            release_name: "Release <RELEASE_VERSION>"
     
     release-swagger:
       name: Upload Swagger to Github pages
@@ -329,13 +334,12 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v4
         - name: Generate Swagger UI
-          id: swagger-ui-action
-          uses: pjoc-team/swagger-ui-action@v0.0.2
+          uses: Legion2/swagger-ui-action@v1
           with:
-            dir: './server'
-            pattern: '*.json'
+            output: swagger-ui
+            spec-file: ./server/openapi.json
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v3
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./public
+            publish_dir: swagger-ui
