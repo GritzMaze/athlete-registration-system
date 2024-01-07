@@ -48,6 +48,15 @@
         <li><a href="#development">Development</a></li>
       </ul>
     </li>
+    <li><a href="#deployment-process">Deployment process</a>
+      <ul>
+        <li><a href="#development">Development</a></li>
+        <li><a href="#testing">Testing</a></li>
+        <li><a href="#continuous-integration">Continuous Integration</a></li>
+        <li><a href="#dockerization">Dockerization</a></li>
+        <li><a href="#deployment-to-kubernetes">Deployment to Kubernetes</a></li>
+      </ul>
+    </li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contributors">Contributors</a></li>
