@@ -16,7 +16,8 @@ spec:
     spec:
       volumes:
       - name: postgres-volume-mount
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: postgres-pvc
       containers:
       - name: postgres
         image: postgres:15.0-alpine
