@@ -11,4 +11,4 @@ spec:
   selector:
     matchLabels:
       service: postgres
-    storageClassName: hostpath
+  storageClassName: hostpath
