@@ -11,6 +11,8 @@ import login from './login';
 import register from './register';
 import rateLimit from '../middlewares/rateLimit';
 import events from './events';
+import registrations from './registrations';
+import documents from './documents';
 
 const router = Router();
 const requestsPerMinute = 60;
@@ -28,8 +30,7 @@ router.use(notFound);
 router.use(auth);
 
 router.use('/events', events);
-
-// TODO: Add routes
-
+router.use('/registrations', registrations);
+router.use('/documents', documents);
 
 export default router;
