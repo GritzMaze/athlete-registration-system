@@ -1,4 +1,4 @@
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient, Role, Users } from '@prisma/client';
 import { prisma as prismaService } from './prisma.service';
 import { BaseDatabaseService } from './base-database.service';
 import { pick } from 'lodash';
@@ -9,23 +9,26 @@ import { pick } from 'lodash';
 export interface UserCreateInput {
     username: string;
     password: string;
+    role?: Role;
     email?: string;
+    firstName?: string;
+    lastName?: string;
 }
 
-export class UserService extends BaseDatabaseService<User> {
+export class UserService extends BaseDatabaseService<Users> {
   constructor(protected readonly prisma: PrismaClient = prismaService) {
     super(prisma);
   }
 
-  async find(id: number): Promise<User | null> {
-    return await this.prisma.user.findUnique({
+  async find(id: number): Promise<Users | null> {
+    return await this.prisma.users.findUnique({
       where: {
         id
       }
     });
   }
 
-  async findOrThrow(id: number): Promise<User> {
+  async findOrThrow(id: number): Promise<Users> {
     const user = await this.find(id);
 
     if (!user) {
@@ -35,8 +38,8 @@ export class UserService extends BaseDatabaseService<User> {
     return user;
   }
 
-  async findManyByIds(ids: number[]): Promise<User[]> {
-    return await this.prisma.user.findMany({
+  async findManyByIds(ids: number[]): Promise<Users[]> {
+    return await this.prisma.users.findMany({
       where: {
         id: {
           in: ids
@@ -45,19 +48,19 @@ export class UserService extends BaseDatabaseService<User> {
     });
   }
 
-  async findByUsername(username: string): Promise<User | null> {
-    return await this.prisma.user.findUnique({
+  async findByUsername(username: string): Promise<Users | null> {
+    return await this.prisma.users.findUnique({
       where: {
         username
       }
     });
   }
 
-  async create(data: UserCreateInput): Promise<Partial<User>> {
+  async create(data: UserCreateInput): Promise<Partial<Users>> {
 
     const toCreate = pick(data, ['username', 'password', 'email']);
 
-    return await this.prisma.user.create({
+    return await this.prisma.users.create({
       data: toCreate,
       select: {id: true, username: true, email: true, createdAt: true }
     },

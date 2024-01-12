@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import createError from 'http-errors';
 import { authService } from '../services';
-import { User } from '@prisma/client';
+import { Users } from '@prisma/client';
 import { InvalidCredentialsError, UserNotExistError } from '../services/errors';
 
 const router = Router();
@@ -15,7 +15,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const token = await authService.login({ username, password } as User);
+    const token = await authService.login({ username, password } as Users);
     if (!token) {
       next(createError(401, 'Invalid credentials'));
       return;

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Users } from '@prisma/client';
 import { jwtService } from './jwt.service';
 import { UserCreateInput, userService } from '.';
 import bcrypt from 'bcrypt';
@@ -7,7 +7,7 @@ import { DuplicatedUsernameError } from './errors/duplicated-user.error';
 import { InvalidCredentialsError, UserNotExistError } from './errors';
 
 export class AuthService {
-  async login(user: User): Promise<string> {
+  async login(user: Users): Promise<string> {
     const serverUser = await userService.findByUsername(user.username);
 
     if (!serverUser) {
@@ -35,7 +35,7 @@ export class AuthService {
     return await userService.find(payload.id);
   }
 
-  async register(user: UserCreateInput): Promise<Partial<User>> {
+  async register(user: UserCreateInput): Promise<Partial<Users>> {
     const existingUser = await userService.findByUsername(user.username);
 
     if (existingUser) {
