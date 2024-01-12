@@ -3,3 +3,8 @@ export * from './error-formatting.service';
 export * from './auth.service';
 export * from './jwt.service';
 export * from './user.service';
+export * from './events.service';
+export * from './base-database.service';
+export * from './errors';
+export * from './registrations.service';
+export * from './documents.service';

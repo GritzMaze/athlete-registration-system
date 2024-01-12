@@ -10,6 +10,7 @@ import auth from '../middlewares/auth';
 import login from './login';
 import register from './register';
 import rateLimit from '../middlewares/rateLimit';
+import events from './events';
 
 const router = Router();
 const requestsPerMinute = 60;
@@ -25,6 +26,8 @@ router.use('/register', register);
 
 router.use(notFound);
 router.use(auth);
+
+router.use('/events', events);
 
 // TODO: Add routes
 
