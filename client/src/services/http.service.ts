@@ -2,9 +2,9 @@ import { isUndefined, omitBy, trimEnd, trimStart } from 'lodash';
 import { config } from '../config';
 
 
-interface RequestOptions {
+export interface RequestOptions {
     body?: unknown;
-    query?: Record<string, string | undefined>;
+    query?: Record<string, string | number | undefined>;
   }
 
   export class HttpError extends Error {

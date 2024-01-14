@@ -85,8 +85,8 @@ export abstract class BaseDatabaseService<TModel> implements IBaseDatabaseServic
     });
   }
 
-  public async create(data: TModel): Promise<Partial<TModel>> {
-    return await this._model.create(data);
+  public async create(data: Omit<TModel, 'id' | 'createdAt' | 'updatedAt'>): Promise<Partial<TModel>> {
+    return await this._model.create({ data });
   }
 
   public async update(id: number, data: TModel): Promise<Partial<TModel>> {
