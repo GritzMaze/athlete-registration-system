@@ -1,18 +1,17 @@
 import {
-  EditOutlined,
-  EllipsisOutlined,
   SelectOutlined,
   ShareAltOutlined,
   UserAddOutlined,
 } from '@ant-design/icons';
 import { Card, Skeleton } from 'antd';
-import Meta from 'antd/es/card/Meta';
 import { Event as EventType } from '../../models/events';
 import { Description } from './description';
 import { useCurrentUser } from '../context/current-user-context';
 import { User } from '../../models';
 import { AdminActions } from './admin-actions';
 import { useNavigate } from 'react-router-dom';
+
+const { Meta } = Card;
 
 interface EventProps {
   event: EventType;
@@ -27,7 +26,7 @@ export function Event({ event, loading }: EventProps) {
   const actions = [
     <SelectOutlined key='enter' />,
     <ShareAltOutlined key='share' />,
-    <UserAddOutlined key='register' onClick={() => {navigate(`/profile/registration?eventId=${event.id}`)}} />
+    <UserAddOutlined key='register' onClick={() => navigate(`/profile/registration?eventId=${event.id}`)} />
   ]
 
   if ((currentUser.user as User).id === event.managerId ) {

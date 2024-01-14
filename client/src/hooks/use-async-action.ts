@@ -6,6 +6,7 @@ interface AsyncAction<Args extends any[], Result> {
   data: Result | undefined;
   error: unknown;
   loading: boolean;
+  completed: boolean;
 }
 
 export function useAsyncAction<Args extends any[], Result>(
@@ -14,6 +15,7 @@ export function useAsyncAction<Args extends any[], Result>(
   const [data, setData] = useState<Result>();
   const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState(false);
+  const [completed, setCompleted] = useState(false);
 
   const actionRef = useRef(action);
   actionRef.current = action;
@@ -33,6 +35,7 @@ export function useAsyncAction<Args extends any[], Result>(
       throw error;
     } finally {
       setLoading(false);
+      setCompleted(true);
     }
   }, []);
 
@@ -43,5 +46,5 @@ export function useAsyncAction<Args extends any[], Result>(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { trigger, perform, data, error, loading };
+  return { trigger, perform, data, error, loading, completed };
 }

@@ -5,7 +5,7 @@ export function useAsync<T>(
   action: () => Promise<T>,
   dependencies: DependencyList
 ) {
-  const { trigger, data, loading, error } = useAsyncAction(action);
+  const { trigger, data, loading, error, completed } = useAsyncAction(action);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => trigger(), dependencies);
@@ -14,5 +14,5 @@ export function useAsync<T>(
     trigger();
   };
 
-  return { data, reload, loading, error };
+  return { data, reload, loading, error, completed };
 }

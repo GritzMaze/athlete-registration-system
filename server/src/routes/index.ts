@@ -19,7 +19,7 @@ const requestsPerMinute = 60;
 
 router.use(cors());
 
-router.use(requestLogLevel(LogLevel.info), logRequest);
+router.use(requestLogLevel(), logRequest);
 
 router.use(rateLimit(requestsPerMinute));
 

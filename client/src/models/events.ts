@@ -1,7 +1,6 @@
-import { User } from './user';
 
 export interface Event {
-    id: string;
+    id: number;
     name: string;
     date: string;
     location: string;

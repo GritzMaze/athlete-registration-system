@@ -49,6 +49,14 @@ model Events {
 
 model Registrations {
   id                     Int               @id @default(autoincrement())
+  email                  String
+  name                   String
+  birthDate              DateTime
+  gender                 String
+  country                String
+  events                 String[]
+  club                   String?
+  federation             String
   eventId                Int
   userId                 Int
   event                  Events            @relation(fields: [eventId], references: [id])

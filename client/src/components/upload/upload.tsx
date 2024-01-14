@@ -1,6 +1,8 @@
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { message, Upload, Typography, Space } from 'antd';
+import { registrationStepContextService } from '../../services/registration-step-context.service';
+import { useEffect } from 'react';
 
 const { Dragger } = Upload;
 const { Title } = Typography;
@@ -26,7 +28,21 @@ const props: UploadProps = {
   },
 };
 
-export function UploadComponent() {
+interface UploadComponentProps {
+  onCompleted: () => void;
+}
+
+export function UploadComponent({ onCompleted }: UploadComponentProps) {
+
+  // TODO: Add upload logic and remove this and add actual submitter
+  registrationStepContextService.setStepSubmitter(onCompleted);
+
+  useEffect(() => {
+    return () => {
+      registrationStepContextService.disconnect();
+    };
+  }, []);
+
   return (
     <>
     <Space direction='vertical' size='large'>

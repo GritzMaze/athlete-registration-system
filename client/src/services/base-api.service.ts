@@ -12,7 +12,7 @@ export abstract class BaseApiService {
         return httpService.get<T>(`${this.endpoint}/${id}`);
     }
 
-    getAll<T>(options: Record<string, string | number>): Promise<IGetAllOptions<T>> {
+    getAll<T>(options?: Record<string, string | number>): Promise<IGetAllOptions<T>> {
         const requestOptions: RequestOptions = {
             query: options
         }
@@ -26,11 +26,11 @@ export abstract class BaseApiService {
         return httpService.post<T>(this.endpoint, requestOptions);
     }
     
-    put<T>(body: T): Promise<T> {
+    put<T>(id: number, body: T): Promise<T> {
         const requestOptions: RequestOptions = {
             body: body
         }
-        return httpService.put<T>(this.endpoint, requestOptions);
+        return httpService.put<T>(`${this.endpoint}/${id}`, requestOptions);
     }
     
     delete<T>(): Promise<T> {

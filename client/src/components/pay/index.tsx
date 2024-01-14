@@ -3,11 +3,25 @@ import { paymentService } from '../../services/payment.service';
 import { Typography } from 'antd';
 import { useCurrentUser } from '../context/current-user-context';
 import { useSearchParams } from 'react-router-dom';
+import { registrationStepContextService } from '../../services/registration-step-context.service';
+import { useEffect } from 'react';
 
 const { Text } = Typography;
 
-export function PayComponent() {
+interface PayComponentProps {
+  onCompleted: () => void;
+}
+
+export function PayComponent({ onCompleted }: PayComponentProps) {
   const { user } = useCurrentUser();
+
+  registrationStepContextService.setStepSubmitter(onCompleted);
+
+  useEffect(() => {
+    return () => {
+      registrationStepContextService.disconnect();
+    };
+  }, []);
 
   const handleCheckout = async () => {
     await paymentService.checkout({
