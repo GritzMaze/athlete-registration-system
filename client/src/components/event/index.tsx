@@ -12,6 +12,7 @@ import { Description } from './description';
 import { useCurrentUser } from '../context/current-user-context';
 import { User } from '../../models';
 import { AdminActions } from './admin-actions';
+import { useNavigate } from 'react-router-dom';
 
 interface EventProps {
   event: EventType;
@@ -21,11 +22,12 @@ interface EventProps {
 export function Event({ event, loading }: EventProps) {
 
   const currentUser = useCurrentUser();
+  const navigate = useNavigate();
 
   const actions = [
     <SelectOutlined key='enter' />,
     <ShareAltOutlined key='share' />,
-    <UserAddOutlined key='register' />
+    <UserAddOutlined key='register' onClick={() => {navigate(`/profile/registration?eventId=${event.id}`)}} />
   ]
 
   if ((currentUser.user as User).id === event.managerId ) {
@@ -43,7 +45,9 @@ export function Event({ event, loading }: EventProps) {
             src='https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'
           />
         }
+        onTabChange={(key) => console.log(key)}
         actions={ actions }
+        loading={loading}
       >
         <Skeleton loading={loading} active>
           <Meta

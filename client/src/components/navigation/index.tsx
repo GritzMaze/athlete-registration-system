@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   HomeOutlined,
   LogoutOutlined,
@@ -99,6 +99,11 @@ export function Navigation() {
   const navigate = useNavigate();
   const currentPage = determineCurrentPage(location.pathname);
   const [current, setCurrent] = useState(currentPage);
+
+  useEffect(() => {
+    const currentPage = determineCurrentPage(location.pathname);
+    setCurrent(currentPage);
+  }, [location]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
