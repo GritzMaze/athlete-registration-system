@@ -17,7 +17,7 @@ export interface UserCreateInput extends CreateInput {
 
 export class UserService extends BaseDatabaseService<Users> {
   constructor(protected readonly prisma: PrismaClient = prismaService) {
-    super(prisma);
+    super(prisma.users, prisma);
   }
 
   async findByUsername(username: string): Promise<Users | null> {

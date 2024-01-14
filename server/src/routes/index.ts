@@ -26,11 +26,10 @@ router.use(rateLimit(requestsPerMinute));
 router.use('/login', login);
 router.use('/register', register);
 
-router.use(notFound);
-router.use(auth);
 
-router.use('/events', events);
-router.use('/registrations', registrations);
-router.use('/documents', documents);
+router.use('/events', auth, events);
+router.use('/registrations', auth, registrations);
+router.use('/documents', auth, documents);
+router.use(notFound);
 
 export default router;

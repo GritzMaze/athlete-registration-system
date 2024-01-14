@@ -26,8 +26,8 @@ export default async function auth(
 
   try {
     const payload = jwt.verify(jwtToken, jwtKey);
-    const { id } = payload as any;
-    const currentUser = await userService.find(id);
+    const { user } = payload as any;
+    const currentUser = await userService.find(user.id);
     if (!currentUser) {
       next(createError(401, 'User not found'));
       return;
