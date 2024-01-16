@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Spin, Steps, message } from 'antd';
 import './index.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RegistrationFormComponent } from '../../components/registration-form';
 import { UploadComponent } from '../../components/upload/upload';
 import { PayComponent } from '../../components/pay';
@@ -29,7 +29,10 @@ export function RegistrationPage() {
   const eventId = searchParams.get('eventId');
   const registrationId = searchParams.get('registrationId');
   const [nextPage, setNextPage] = useState<number>(0);
-  const onCompleted = () => { setCurrent(nextPage)};
+
+  const onCompleted = useCallback(() => setCurrent(nextPage), [nextPage]);
+  const onCompletedRef = useRef<() => void>(onCompleted);
+
 
   const {loading, error, completed: registrationCompleted } = useAsync(async () => {
     if (!registrationId) {
@@ -65,7 +68,7 @@ export function RegistrationPage() {
       title: 'Pay',
       status: 'process',
       icon: <PayCircleOutlined />,
-      content: <PayComponent onCompleted={ onCompleted }/>,
+      content: <PayComponent onCompleted={ onCompleted } price={event?.participationFee} registrationId={Number(registrationId)} />,
     },
     {
       title: 'Done',
@@ -93,6 +96,7 @@ export function RegistrationPage() {
     
     if (isValid) {
       setNextPage(current + 1);
+      console.log('submit step')
       registrationStepContextService.submitStep();
     }
   };
@@ -107,6 +111,7 @@ export function RegistrationPage() {
     }
     if (isValid) {
       setNextPage(current - 1);
+      console.log('submit step')
       registrationStepContextService.submitStep();
     }
   };

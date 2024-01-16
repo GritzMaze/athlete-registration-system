@@ -51,7 +51,7 @@ export function Event({ event, loading }: EventProps) {
         <Skeleton loading={loading} active>
           <Meta
             title={event.name}
-            description={<Description location={event.location} date={event.date} />}
+            description={<Description location={event.location} date={event.date} price={event.participationFee} />}
           />
         </Skeleton>
       </Card>

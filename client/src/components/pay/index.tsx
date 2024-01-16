@@ -10,10 +10,16 @@ const { Text } = Typography;
 
 interface PayComponentProps {
   onCompleted: () => void;
+  price: number | undefined;
+  registrationId: number | undefined;
 }
 
-export function PayComponent({ onCompleted }: PayComponentProps) {
+export function PayComponent({ onCompleted, price, registrationId }: PayComponentProps) {
   const { user } = useCurrentUser();
+  const [searchParams] = useSearchParams();
+  const cancel = searchParams.get('cancel');
+  const eventId = searchParams.get('eventId');
+
 
   registrationStepContextService.setStepSubmitter(onCompleted);
 
@@ -26,19 +32,17 @@ export function PayComponent({ onCompleted }: PayComponentProps) {
   const handleCheckout = async () => {
     await paymentService.checkout({
       product: 'registration',
-      quantity: 1,
+      quantity: price || 1,
       mode: 'payment',
       successUrl:
-        'http://localhost:3001/profile/registration/success/session_id={CHECKOUT_SESSION_ID}',
-      cancelUrl: 'http://localhost:3001/profile/registration?cancel=true',
+        `http://localhost:3001/profile/registration/success?registrationId=${registrationId}`,
+      cancelUrl: `http://localhost:3001/profile/registration?registrationId=${registrationId}&eventId=${eventId}&cancel=true`,
       metadata: {
         email: user?.email || '',
       },
     });
   };
 
-  const [searchParams] = useSearchParams();
-  const cancel = searchParams.get('cancel');
 
   return (
     <>
@@ -58,6 +62,7 @@ export function PayComponent({ onCompleted }: PayComponentProps) {
           You will be redirected to an another page for payment after clicking
           the button.
         </Text>
+        <Text>Price: {price} BGN</Text>
         <Button type='primary' onClick={handleCheckout}>
           Pay
         </Button>

@@ -4,8 +4,10 @@ import {
   PayCircleOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
-import { Alert, Button, Space, Steps } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Space, Spin, Steps, message } from 'antd';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useAsync } from '../../hooks/use-async';
+import { registrationService } from '../../services/registration.service';
 
 const items = [
   {
@@ -31,6 +33,27 @@ export function SuccessRegistrationPage() {
   const navigateToHome = () => {
     navigate('/');
   };
+
+  const [searchParams] = useSearchParams();
+
+  const registrationId = searchParams.get('registrationId');
+
+  const { error, loading } = useAsync(async () => {
+    if (!registrationId) {
+      message.error('Registration not found');
+      return undefined;
+    }
+    registrationService.confirm(Number(registrationId));
+  }, [registrationId]);
+
+  if (loading) {
+    return <Spin />;
+  }
+
+  if (error) {
+    return <Alert type='error' message={(error as any).message || error} />;
+  }
+
   return (
     <div className='registration-container'>
       <Steps items={items} current={items.length} />

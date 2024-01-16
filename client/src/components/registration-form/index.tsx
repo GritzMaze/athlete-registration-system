@@ -172,7 +172,7 @@ export function RegistrationFormComponent({ event, onCompleted }: RegistrationFo
       form={form}
       name='register'
       onFinish={onFinish}
-      initialValues={{ email: user.user?.email, country: 'Bulgaria', federation: 'bulgaria' }}
+      initialValues={{ eventId: event?.id, email: user.user?.email, country: 'Bulgaria', federation: 'bulgaria' }}
       style={{ maxWidth: 600, minWidth: 360 }}
       onFieldsChange={(changedFields) => {
         if (changedFields.length && !dirty) {

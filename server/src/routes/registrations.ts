@@ -51,6 +51,16 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
+router.post('/:id/confirm', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    try {
+        res.json(await registrationService.confirm(Number(id)));
+    } catch (err: any) {
+        next(createHttpError(err.statusCode || 500, err));
+    }
+});
+
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 

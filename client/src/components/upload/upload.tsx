@@ -35,7 +35,8 @@ interface UploadComponentProps {
 export function UploadComponent({ onCompleted }: UploadComponentProps) {
 
   // TODO: Add upload logic and remove this and add actual submitter
-  registrationStepContextService.setStepSubmitter(onCompleted);
+  console.log('UploadComponent oncompleted mouted');
+  registrationStepContextService.setStepSubmitter(() => onCompleted());
 
   useEffect(() => {
     return () => {
