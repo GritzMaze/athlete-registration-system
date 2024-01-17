@@ -1,11 +1,11 @@
-import { Input, Button, Form, Alert } from 'antd';
+import { Input, Button, Form, Alert, Select } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import './index.css';
 import background from '../../assets/login-page-bg.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAsyncAction } from '../../hooks/use-async-action';
 import { authService } from '../../services/auth-service';
-import { User } from '../../models';
+import { Role, User } from '../../models';
 
 // TODO: Unify this and login page
 export function RegisterPage() {
@@ -62,6 +62,24 @@ export function RegisterPage() {
             prefix={<MailOutlined className='site-form-item-icon' />}
             placeholder='Email'
           />
+        </Form.Item>
+        <Form.Item
+          name='role'
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Role is required',
+            },
+          ]}
+        >
+          <Select
+            placeholder='Select a role'
+          >
+            <Select.Option value={Role.ATHLETE}>Athlete</Select.Option>
+            <Select.Option value={Role.COACH}>Coach</Select.Option>
+            <Select.Option value={Role.MANAGER}>Manager</Select.Option>
+          </Select>
         </Form.Item>
         <Form.Item
           name='password'

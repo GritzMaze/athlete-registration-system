@@ -11,6 +11,7 @@ enum Role {
   ATHLETE
   COACH
   MANAGER
+  ADMIN
 }
 
 enum TransactionStatus {
@@ -39,6 +40,7 @@ model Events {
   name             String
   date             DateTime
   location         String
+  image            String?
   managerId        Int
   manager          Users           @relation(fields: [managerId], references: [id])
   participationFee Int

@@ -37,11 +37,23 @@ const RANDOM_NAMES = [
     'World Indoor Tour - Madrid'
 ];
 
+const RANDOM_IMAGES = [
+  'https://media.yourschoolgames.com/images/Athletics_1.width-550.jpg',
+  'https://thumbs.dreamstime.com/b/athletics-hurdle-jumping-summer-games-icon-set-d-isometric-athlete-olympics-sporting-championship-international-athletics-73533390.jpg',
+  'https://images.ctfassets.net/hnk2vsx53n6l/5b1youyakrZOR43viEgDGx/7fbada0bdd5bc8f29a9121e1da1dbf16/OAC_Page_Update_October_2021_Cover_2880x1230px.jpeg?fm=webp',
+  'https://nordicsport.com.au/cdn/shop/files/nordic-mainbanner1_1800x.jpg?v=1640152414',
+  'https://www.tdk.com/tdkcorpdr/jp/athletic/img/wca_tdk/image01.jpg',
+  'https://www.qldathletics.org.au/qlda/includes/themes/MuraBootstrap3/assets/new_assets/img/membership/2023%20Boys%20Sprint%20Nats.jpg',
+  'https://images.twinkl.co.uk/tr/image/upload/illustation/Baton-Exchange-Relay-Running--Athletics-Twinkl-Move-PE.png',
+  'https://i.ytimg.com/vi/x8U8-HKFadk/maxresdefault.jpg',
+  'https://st.adda247.com/https://wpassets.adda247.com/wp-content/uploads/multisite/2023/05/06003805/World-Athletics-Day-2023.png'
+]
+
 async function main() {
   const user = {
     email: 'admin@admin.net',
     password: 'admin',
-    role: Role.MANAGER,
+    role: Role.ADMIN,
     firstName: 'Admin',
     lastName: 'Admin',
     username: 'admin'
@@ -56,6 +68,7 @@ const createdUser = await authService.register(user);
         location: RANDOM_LOCATIONS[Math.floor(Math.random() * RANDOM_LOCATIONS.length)],
         date: new Date(),
         participationFee: Math.random() * 100,
+        image: RANDOM_IMAGES[Math.floor(Math.random() * RANDOM_IMAGES.length)],
         managerId: createdUser.id || 1
         };
     

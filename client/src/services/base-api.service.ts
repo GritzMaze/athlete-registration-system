@@ -33,7 +33,7 @@ export abstract class BaseApiService {
         return httpService.put<T>(`${this.endpoint}/${id}`, requestOptions);
     }
     
-    delete<T>(): Promise<T> {
-        return httpService.delete<T>(this.endpoint);
+    delete<T>(id: number): Promise<T> {
+        return httpService.delete<T>(`${this.endpoint}/${id}`);
     }
 }

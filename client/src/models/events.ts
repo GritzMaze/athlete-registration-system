@@ -5,6 +5,7 @@ export interface Event {
     date: string;
     participationFee: number;
     location: string;
+    image: string;
     createdAt: string;
     updatedAt: string;
     managerId: number;

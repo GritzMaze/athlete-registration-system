@@ -5,8 +5,18 @@ import createHttpError from 'http-errors';
 const router = Router();
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
-    const { skip, take, orderBy, where, include, select } = req.query;
+    const { skip, take, orderBy, where: whereQuery, include, select } = req.query;
 
+    let where = undefined;
+
+    // 
+    if (whereQuery) {
+        where = {
+            name: {
+                contains: whereQuery as string
+            }
+        };
+    }
     try {
         res.json(await eventsService.findAll({
             skip: Number(skip) || undefined,
@@ -16,6 +26,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             include,
             select
         }));
+
     } catch (err: any) {
         next(createHttpError(err.statusCode || 500, err));
     }

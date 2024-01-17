@@ -1,6 +1,7 @@
 export enum Role {
     ATHLETE = 'ATHLETE',
     COACH = 'COACH',
+    MANAGER = 'MANAGER',
     ADMIN = 'ADMIN'
 }
 
@@ -11,7 +12,7 @@ export interface User {
     createdAt: string;
     updatedAt: string;
     password?: string;
-    Role?: Role;
+    role?: Role;
     firstName?: string;
     lastName?: string;
     }

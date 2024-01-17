@@ -24,7 +24,8 @@ export class AuthService {
       user: {
         username: user.username,
         id: serverUser.id,
-        email: serverUser.email
+        email: serverUser.email,
+        role: serverUser.role
     }
   };
 
