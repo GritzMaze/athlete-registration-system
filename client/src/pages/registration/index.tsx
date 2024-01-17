@@ -27,7 +27,7 @@ export function RegistrationPage() {
   const cancel = searchParams.get('cancel');
   const [current, setCurrent] = useState(cancel ? 2 : 0);
   const eventId = searchParams.get('eventId');
-  const registrationId = searchParams.get('registrationId');
+  const registrationId = registrationContextService.registrationContext?.id;
   const [nextPage, setNextPage] = useState<number>(0);
 
   const onCompleted = useCallback(() => setCurrent(nextPage), [nextPage]);

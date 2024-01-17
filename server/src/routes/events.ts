@@ -42,6 +42,16 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
+router.get('/:id/registrations', async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    try {
+        res.json(await eventsService.getRegistrations(Number(id)));
+    } catch (err: any) {
+        next(createHttpError(err.statusCode || 500, err));
+    }
+});
+
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     const event = req.body;
 

@@ -15,6 +15,7 @@ interface PayComponentProps {
 }
 
 export function PayComponent({ onCompleted, price, registrationId }: PayComponentProps) {
+  console.log("🚀 ~ PayComponent ~ registrationId:", registrationId)
   const { user } = useCurrentUser();
   const [searchParams] = useSearchParams();
   const cancel = searchParams.get('cancel');

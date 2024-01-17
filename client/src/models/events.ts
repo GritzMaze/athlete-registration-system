@@ -1,3 +1,4 @@
+import { Registration } from './registration';
 
 export interface Event {
     id: number;
@@ -9,4 +10,5 @@ export interface Event {
     createdAt: string;
     updatedAt: string;
     managerId: number;
+    Registrations?: Registration[];
     }

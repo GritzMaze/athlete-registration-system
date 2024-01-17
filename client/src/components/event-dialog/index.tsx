@@ -47,7 +47,7 @@ export function EventDialog({ isModalOpen, setModalOpen, reload, event }: EventD
     }
 
     return (
-        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Submit" confirmLoading={loading}>
+        <Modal title="Create/Update Event" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Submit" confirmLoading={loading}>
              <Form
       form={form}
       name='register'

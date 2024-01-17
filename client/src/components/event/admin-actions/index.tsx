@@ -2,6 +2,7 @@ import {
     DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
+  ProfileOutlined,
 } from '@ant-design/icons';
 import { Dropdown, MenuProps, message } from 'antd';
 import { ConfirmDialog } from '../../confirm-dialog';
@@ -9,6 +10,7 @@ import { useState } from 'react';
 import { Event } from '../../../models';
 import { eventsService } from '../../../services/events.service';
 import { EventDialog } from '../../event-dialog';
+import { EventRegistrations } from '../../event-registrations';
 
 interface AdminActionsProps {
   event: Event;
@@ -17,6 +19,7 @@ interface AdminActionsProps {
 export function AdminActions({ event, reload }: AdminActionsProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [eventDialogOpen, setEventDialogOpen] = useState(false);
+  const [EventRegistrationsDialogOpen, setEventRegistrationsDialogOpen] = useState(false);
 
   const handleDelete = async () => {
     await eventsService.delete(event.id);
@@ -33,6 +36,13 @@ export function AdminActions({ event, reload }: AdminActionsProps) {
       onClick: () => setEventDialogOpen(true)
     },
     {
+      label: 'See Participants',
+      key: '3',
+      icon: <ProfileOutlined />,
+      onClick: () => setEventRegistrationsDialogOpen(true)
+
+    },
+    {
       label: 'Delete',
       key: '2',
       icon: <DeleteOutlined />,
@@ -42,6 +52,11 @@ export function AdminActions({ event, reload }: AdminActionsProps) {
   ];
   return (
     <>
+    <EventRegistrations
+      id={event.id}
+      open={EventRegistrationsDialogOpen}
+      setOpen={setEventRegistrationsDialogOpen}
+    ></EventRegistrations>
     <EventDialog
       isModalOpen={eventDialogOpen}
       setModalOpen={setEventDialogOpen}

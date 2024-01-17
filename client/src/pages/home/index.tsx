@@ -1,6 +1,6 @@
 import './index.css';
 import { Event } from '../../components/event';
-import { Alert, Button, Flex, Input, Pagination, Space } from 'antd';
+import { Alert, Button, Flex, Pagination, Space } from 'antd';
 import { eventsService } from '../../services/events.service';
 import { useAsyncAction } from '../../hooks/use-async-action';
 import { useEffect, useState } from 'react';
