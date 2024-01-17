@@ -51,7 +51,7 @@ export function EventDialog({ isModalOpen, setModalOpen, reload, event }: EventD
              <Form
       form={form}
       name='register'
-      initialValues={{ name: event?.name, date: dayjs(event?.date), location: event?.location, price: event?.participationFee }}
+      initialValues={{ name: event?.name, date: dayjs(event?.date), location: event?.location, participationFee: event?.participationFee }}
       style={{ maxWidth: 600, minWidth: 360 }}
       >
 

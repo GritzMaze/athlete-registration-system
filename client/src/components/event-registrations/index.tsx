@@ -16,7 +16,6 @@ export function EventRegistrations({ id, open, setOpen }: RegistrationProps) {
 
     const { data:participants, loading, error, trigger } = useAsyncAction(async () => {
         const data = await eventsService.getRegistrations(id);
-        console.log("🚀 ~ const{data:participants,loading,error,trigger}=useAsyncAction ~ data:", data)
         
         return data;
     });
@@ -98,7 +97,7 @@ export function EventRegistrations({ id, open, setOpen }: RegistrationProps) {
 
     return (
         <Modal
-        style={{ maxWidth: 700, minWidth: 600 }}
+        style={{ maxWidth: 700, minWidth: 700 }}
         title="Event Registrations"
         open={open}
         onOk={() => setOpen(false)}
